@@ -1,0 +1,266 @@
+<html><head><title></title></head><body><script>
+function Y(le) {
+	return (function (f) {
+		return f(f);
+	}(function (f) {
+		return le(function (x) {
+			return f(f)(x);
+		});
+	}));
+}
+
+function X(le) {
+	return (function () {
+		var f = function (g) {
+			return le(function (x) {
+				return g(g)(x);
+			});
+		}
+		return f(f);
+	}());
+}
+
+function X_(le) {
+	return (function () {
+		function f(g) {
+			return le(function (x) {
+				return g(g)(x);
+			});
+		}
+		return f(f);
+	}());
+}
+
+function X__(le) {
+	return (function () {
+		function f() {
+			return le(function (x) {
+				return f(f)(x);
+			});
+		}
+		return f(f);
+	}());
+}
+
+function X___(le) {
+	return (function f() {
+		return le(function (x) {
+			return f(f)(x);
+		});
+	}());
+}
+
+function Z(le) {
+	return function f() {
+		return le(function (x) {
+			return f(f)(x);
+		});
+	}();
+}
+
+// <- from Z
+function Z_(le) {
+	function f() {
+		return le(function (x) {
+			return f()(x);
+		});
+	}
+	return f();
+}
+
+// - unnecessary because f doesn't take arguments
+// <- from Z
+function YYZ(le) {
+	return le(function (x) {
+		return function f() {
+			return le(function (y) {
+				return f(f)(y);
+			});
+		}(function f() {
+			return le(function (z) {
+				return f(f)(z);
+			});
+		})(x);
+	});
+}
+
+function XYZ(le) {
+	function f1(x) {
+		function f() {
+			return le(function (y) {
+				return f(f)(y);
+			});
+		}
+
+		return f(f)(x);
+	}
+	return le(f1);
+}
+
+function XYZ_(value) {
+	function func(fac) {
+		return function (n) {
+			return n <= 2 ? n : n * fac(n-1);
+		};
+	}
+
+	function f1(x) {
+		function f() {
+			return func(function (y) {
+				return f(f)(y);
+			});
+		}
+
+		return f(f)(x);
+	}
+	return func(f1)(value);
+}
+
+function ZZZ(value) {
+	function func() {
+		function f1(x) {
+			function f() {
+				return func(function (y) {
+					return f(f)(y);
+				});
+			}
+
+			return f(f)(x);
+		}
+		return function (n) {
+			return n <= 2 ? n : n * f1(n-1);
+		};
+	}
+
+	return func()(value);
+}
+
+function ZZZ_(value) {
+	function func() {
+		function f1(x) {
+			function f() {
+				return func();
+			}
+
+			return f(f)(x);
+		}
+		return function (n) {
+			return n <= 2 ? n : n * f1(n-1);
+		};
+	}
+
+	return func()(value);
+}
+
+function YYY(value) {
+	function f1(x) {
+		function f() {
+			return func();
+		}
+
+		return f(f)(x);
+	}
+
+	function func() {
+		return function (n) {
+			return n <= 2 ? n : n * f1(n-1);
+		};
+	}
+
+	return func()(value);
+}
+
+function YY(value) {
+	function f1(x) {
+		function f() {
+			return fn;
+		}
+
+		return f(f)(x);
+	}
+
+	function fn(n) {
+		return n <= 2 ? n : n * f1(n-1);
+	}
+
+	return fn(value);
+}
+
+function YY_(value) {
+	function f1(x) {
+		return fn(x);
+	}
+
+	function fn(n) {
+		return n <= 2 ? n : n * f1(n-1);
+	}
+
+	return fn(value);
+}
+
+function Y_(value) {
+	function fac(n) {
+		return n <= 2 ? n : n * fac(n-1);
+	}
+
+	return fac(value);
+}
+
+function Y__() {
+	return function fac(n) {
+		return n <= 2 ? n : n * fac(n-1);
+	};
+}
+
+function fac_(n) {
+	return n <= 2 ? n : n * fac_(n-1);
+}
+/*function func(fac) {
+	return function (n) {
+		return n <= 2 ? n : n * fac(n-1);
+	};
+}*/
+
+var factorial = Y(function (fac) {
+	return function (n) {
+		return n <= 2 ? n : n * fac(n-1);
+	};
+});
+var factorial6 = X___(function (fac) {
+	return function (n) {
+		return n <= 2 ? n : n * fac(n-1);
+	};
+});
+
+/*var factorial2 = X(func);
+var factorial3 = Z(func);
+var factorial4 = YYZ(func);
+var factorial5 = XYZ(func);*/
+//var factorialFinal_ = fac_;
+var factorialFinal = function fac(n) {
+	return n <= 2 ? n : n * fac(n-1);
+}
+
+/**
+ * In the end we're just creating a recursive function without
+ * the need for a named anonymous function or even easier:
+ * We're naming the returned function with the argument of the outer one
+ */
+
+//alert(factorial(5));
+//alert(factorial2(5));
+//alert(factorial3(5));
+//alert(factorial4(5));
+//alert(factorial5(5));
+alert(factorial6(5));
+//alert(XYZ_(5));
+//alert(ZZZ(5));
+//alert(ZZZ_(5));
+//alert(YYY(5));
+//alert(YY(5));
+//alert(YY_(5));
+//alert(Y_(5));
+//alert(Y__()(5));
+//alert(Y___()(5));
+//alert(factorialFinal(5));
+</script></body></html>
